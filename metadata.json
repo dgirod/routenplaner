@@ -1,0 +1,6 @@
+{
+  "name": "Reiseplaner & Routenplaner",
+  "description": "Interaktiver Reiseplaner mit Google Maps Routenübersicht, Tagesplanung, Aktivitätenverwaltung und Streckenoptimierung.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
