@@ -10,6 +10,7 @@ import { CreateTripModal } from './components/CreateTripModal';
 import { AIAssistantModal } from './components/AI/AIAssistantModal';
 import { ConfirmModal } from './components/ConfirmModal';
 import { TripGuideModal } from './components/Story/TripGuideModal';
+import { APP_VERSION } from './version';
 import {
   getGoogleMapsDirectionsUrl,
   optimizeRouteOrder,
@@ -454,6 +455,7 @@ export default function App() {
                       onClick={() => {
                         setActiveTripId(t.id);
                         setSelectedDayId('all');
+                        setFocusedStopId(null);
                         setIsTripDropdownOpen(false);
                       }}
                       className={`w-full text-left px-3 py-2 text-xs flex items-center justify-between transition ${
@@ -602,6 +604,7 @@ export default function App() {
 
         {/* Interactive Map Component with Google Maps place selection click support */}
         <TripMap
+          key={activeTrip.id}
           trip={activeTrip}
           selectedDayId={selectedDayId}
           focusedStopId={focusedStopId}
@@ -648,8 +651,11 @@ export default function App() {
       {/* Footer */}
       <footer className="bg-[#0d121d] border-t border-slate-800/80 mt-12 py-6 text-center text-xs text-slate-500">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap justify-center sm:justify-start">
             <span className="font-bold text-slate-300">Reiseplaner & Routenplaner</span>
+            <span className="px-2 py-0.5 bg-blue-950/80 border border-blue-800/60 text-blue-400 text-[11px] font-mono font-bold rounded-md shadow-xs">
+              {APP_VERSION}
+            </span>
             <span>·</span>
             <span>Optimale Streckenverwaltung & Google Maps Integration</span>
           </div>

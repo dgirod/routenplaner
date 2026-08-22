@@ -93,6 +93,12 @@ export const TripMap: React.FC<TripMapProps> = ({
     return selectedDayId !== 'all' ? selectedDayId : trip.days[0]?.id || '';
   });
 
+  // Keep targetDayId in sync and reset selected point when switching trips or days
+  React.useEffect(() => {
+    setTargetDayId(selectedDayId !== 'all' ? selectedDayId : trip.days[0]?.id || '');
+    setSelectedPoint(null);
+  }, [trip.id, selectedDayId]);
+
   const activeStops = selectedDayId === 'all'
     ? trip.days.flatMap((d) => d.stops)
     : trip.days.find((d) => d.id === selectedDayId)?.stops || [];

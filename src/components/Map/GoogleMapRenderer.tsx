@@ -300,6 +300,7 @@ export const GoogleMapRenderer: React.FC<GoogleMapRendererProps> = ({
     <div className="relative w-full h-full min-h-[380px] rounded-2xl overflow-hidden shadow-inner border border-slate-200">
       <APIProvider apiKey={apiKey}>
         <Map
+          key={trip.id}
           defaultCenter={defaultCenter}
           defaultZoom={8}
           mapId="DEMO_MAP_ID"

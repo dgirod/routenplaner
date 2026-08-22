@@ -37,10 +37,21 @@ export const LeafletMapRenderer: React.FC<LeafletMapRendererProps> = ({
     if (!mapContainerRef.current) return;
 
     if (!mapInstanceRef.current) {
+      let initialLat = 43.7731;
+      let initialLng = 11.256;
+      for (const day of trip.days) {
+        const valid = day.stops.find((s) => !isNaN(s.lat) && !isNaN(s.lng));
+        if (valid) {
+          initialLat = valid.lat;
+          initialLng = valid.lng;
+          break;
+        }
+      }
+
       const map = L.map(mapContainerRef.current, {
         zoomControl: false,
         attributionControl: true,
-      }).setView([43.7731, 11.256], 7);
+      }).setView([initialLat, initialLng], 8);
 
       L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
         attribution:
@@ -567,10 +578,11 @@ export const LeafletMapRenderer: React.FC<LeafletMapRendererProps> = ({
     }
 
     if (hasCoords && map && !selectedCustomPoint) {
+      map.invalidateSize();
       map.fitBounds(bounds, {
-        padding: [50, 50],
+        padding: [45, 45],
         maxZoom: 15,
-        animate: true,
+        animate: false,
       });
     }
 
