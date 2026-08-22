@@ -38,7 +38,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
 
     def deploy(self):
         try:
-            subprocess.run(["git", "pull"], cwd=REPO, check=True)
+            subprocess.run(["git", "pull", "origin", "main"], cwd=REPO, check=True)
             subprocess.run(["docker", "compose", "build"], cwd=REPO, check=True)
             subprocess.run(["docker", "compose", "up", "-d"], cwd=REPO, check=True)
             print("deploy finished OK")
