@@ -1,4 +1,4 @@
-import http.server, hashlib, hmac, json, os, subprocess
+import http.server, hashlib, hmac, json, os, subprocess, threading
 
 def load_secret():
     try:
@@ -34,7 +34,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
         if payload.get("ref", "") != "refs/heads/main":
             return self.reply(200, b"ignored ref")
         self.reply(200, b"deploying")
-        self.deploy()
+        threading.Thread(target=self.deploy, daemon=True).start()
 
     def deploy(self):
         try:
