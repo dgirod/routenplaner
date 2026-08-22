@@ -39,8 +39,8 @@ class Handler(http.server.BaseHTTPRequestHandler):
     def deploy(self):
         try:
             subprocess.run(["git", "pull", "origin", "main"], cwd=REPO, check=True)
-            subprocess.run(["docker", "compose", "build"], cwd=REPO, check=True)
-            subprocess.run(["docker", "compose", "up", "-d"], cwd=REPO, check=True)
+            subprocess.run(["docker", "compose", "build", "app"], cwd=REPO, check=True)
+            subprocess.run(["docker", "compose", "up", "-d", "app"], cwd=REPO, check=True)
             print("deploy finished OK")
         except Exception as e:
             print("deploy failed:", e)
