@@ -1,6 +1,13 @@
 import http.server, hashlib, hmac, json, os, subprocess
 
-SECRET = os.environ.get("WEBHOOK_SECRET", "")
+def load_secret():
+    try:
+        with open("/repo/webhook_secret.txt") as f:
+            return f.read().strip()
+    except Exception:
+        return os.environ.get("WEBHOOK_SECRET", "")
+
+SECRET = load_secret()
 REPO = "/repo"
 PORT = 9000
 
@@ -40,7 +47,6 @@ class Handler(http.server.BaseHTTPRequestHandler):
 
     def log_message(self, fmt, *args):
         print(fmt % args)
-
 
 if __name__ == "__main__":
     server = http.server.HTTPServer(("0.0.0.0", PORT), Handler)
