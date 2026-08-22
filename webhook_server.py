@@ -2,7 +2,7 @@ import http.server, hashlib, hmac, json, os, subprocess
 
 def load_secret():
     try:
-        with open("/repo/webhook_secret.txt") as f:
+        with open("/repo/webhooksecret.txt") as f:
             return f.read().strip()
     except Exception:
         return os.environ.get("WEBHOOK_SECRET", "")
