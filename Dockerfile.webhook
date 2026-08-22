@@ -1,0 +1,4 @@
+FROM docker:cli
+RUN apk add --no-cache python3 git docker-cli-compose
+COPY webhook_server.py /webhook_server.py
+CMD ["python3", "/webhook_server.py"]
